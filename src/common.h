@@ -110,6 +110,8 @@
 #define BG_KZ_CSTM 1012
 #define BG_BZ_CSTM 1013
 #define BG_NORM_CSTM 1014
+#define BG_F1 1015
+#define BG_F2 1016
 
 //Density field parameters
 #define DZ_SIGMA 0.05
@@ -248,6 +250,8 @@ typedef struct {
   double growth_d2_arr[NA]; //Array of density growth factors used to compute D_d(r)
   double growth_v_arr[NA]; //Array of velocity growth factors used to compute D_v(r)
   double growth_pd_arr[NA]; //Array of potential derivative factors used to compute \dot{\phi}
+  double growth_f1_arr[NA];
+  double growth_f2_arr[NA];
   double ihub_arr[NA]; //Array of 1/H(z)
   double glob_idr; //1/dr, where dr is the radial comoving distance interval used in the arrays above
   // Power spectra
@@ -283,6 +287,12 @@ typedef struct {
   // Density grids
   dftw_complex *grid_dens_f; //Fourier-space grid for the density field
   flouble *grid_dens; //Real-space grid for the density field
+  flouble *grid_velx;
+  flouble *grid_vely;
+  flouble *grid_velz;
+  dftw_complex *grid_velx_f;
+  dftw_complex *grid_vely_f;
+  dftw_complex *grid_velz_f;
   dftw_complex *grid_npot_f; //Fourier-space grid for the Newtonian potential
   flouble *grid_npot; //Real-space grid for the Newtonian potential
   flouble *slice_left; //Dummy array to store grid cells coming from the left node
@@ -447,7 +457,8 @@ flouble *compute_lensing_spacing(ParamCoLoRe *par);
 // Functions defined in io.c
 ParamCoLoRe *read_run_params(char *fname,int test_memory);
 void write_density_grid(ParamCoLoRe *par,char *prefix_dens);
-void write_lpt(ParamCoLoRe *par,unsigned long long npart,flouble *x,flouble *y,flouble *z);
+//void write_lpt(ParamCoLoRe *par,unsigned long long npart,flouble *x,flouble *y,flouble *z);
+void write_lpt(ParamCoLoRe *par,unsigned long long npart,flouble *x,flouble *y,flouble *z, flouble *vx, flouble *vy, flouble *vz);
 void write_srcs(ParamCoLoRe *par);
 void write_imap(ParamCoLoRe *par);
 void write_cstm(ParamCoLoRe *par);

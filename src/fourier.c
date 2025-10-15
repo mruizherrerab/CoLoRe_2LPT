@@ -231,6 +231,37 @@ void allocate_fftw(ParamCoLoRe *par)
     report_error(1,"Ran out of memory\n");
   par->grid_npot=(flouble *)(par->grid_npot_f);
 
+#ifdef _SPREC
+  par->grid_velx_f=fftwf_alloc_complex(dsize+2*par->n_grid*(par->n_grid/2+1));
+#else //_SPREC
+  par->grid_velx_f=fftw_alloc_complex(dsize+2*par->n_grid*(par->n_grid/2+1));
+#endif //_SPREC
+  if(par->grid_velx_f==NULL)
+    report_error(1,"Ran out of memory\n");
+  par->grid_velx=(flouble *)(par->grid_velx_f);
+
+#ifdef _SPREC
+  par->grid_vely_f=fftwf_alloc_complex(dsize+2*par->n_grid*(par->n_grid/2+1));
+#else //_SPREC
+  par->grid_vely_f=fftw_alloc_complex(dsize+2*par->n_grid*(par->n_grid/2+1));
+#endif //_SPREC
+  if(par->grid_vely_f==NULL)
+    report_error(1,"Ran out of memory\n");
+  par->grid_vely=(flouble *)(par->grid_vely_f);
+
+#ifdef _SPREC
+  par->grid_velz_f=fftwf_alloc_complex(dsize+2*par->n_grid*(par->n_grid/2+1));
+#else //_SPREC
+  par->grid_velz_f=fftw_alloc_complex(dsize+2*par->n_grid*(par->n_grid/2+1));
+#endif //_SPREC
+  if(par->grid_velz_f==NULL)
+    report_error(1,"Ran out of memory\n");
+  par->grid_velz=(flouble *)(par->grid_velz_f);
+
+  /*par->grid_velx=(flouble *)(par->grid_npot_f);
+  par->grid_vely=(flouble *)(par->grid_npot_f);
+  par->grid_velz=(flouble *)(par->grid_npot_f);
+  */
 #ifdef _HAVE_MPI
   par->slice_left =&(par->grid_npot[2*dsize]);
   par->slice_right=&(par->grid_npot[2*(dsize+par->n_grid*(par->n_grid/2+1))]);
