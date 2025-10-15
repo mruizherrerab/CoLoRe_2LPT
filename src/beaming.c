@@ -473,6 +473,9 @@ void get_beam_properties(ParamCoLoRe *par)
 #ifdef _HAVE_MPI
   long size_slice_npot=(par->nz_max+2)*((long)(2*par->n_grid*(par->n_grid/2+1)));
   long size_slice_dens=par->nz_max*((long)(2*par->n_grid*(par->n_grid/2+1)));
+  long size_slice_velx=par->nz_max*((long)(2*par->n_grid*(par->n_grid/2+1)));
+  long size_slice_vely=par->nz_max*((long)(2*par->n_grid*(par->n_grid/2+1)));
+  long size_slice_velz=par->nz_max*((long)(2*par->n_grid*(par->n_grid/2+1)));
   flouble *buffer_sr=my_malloc(size_slice_npot*sizeof(flouble));
 #endif //_HAVE_MPI
 
@@ -484,6 +487,9 @@ void get_beam_properties(ParamCoLoRe *par)
 #endif //_DEBUG
     mpi_sendrecv_wrap(par->grid_npot,buffer_sr,size_slice_npot,i);
     mpi_sendrecv_wrap(par->grid_dens,buffer_sr,size_slice_dens,i);
+    mpi_sendrecv_wrap(par->grid_velx,buffer_sr,size_slice_velx,i);
+    mpi_sendrecv_wrap(par->grid_vely,buffer_sr,size_slice_vely,i);
+    mpi_sendrecv_wrap(par->grid_velz,buffer_sr,size_slice_velz,i);
 
 #endif //_HAVE_MPI
     par->nz_here=par->nz_all[node_i_am_now];

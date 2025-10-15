@@ -273,11 +273,23 @@ void end_fftw(ParamCoLoRe *par)
 #ifdef _SPREC
   if(par->grid_dens_f!=NULL)
     fftwf_free(par->grid_dens_f);
+  if(par->grid_velx_f!=NULL)
+    fftwf_free(par->grid_velx_f);
+  if(par->grid_vely_f!=NULL)
+    fftwf_free(par->grid_vely_f);
+  if(par->grid_velz_f!=NULL)
+    fftwf_free(par->grid_velz_f);
   if(par->grid_npot_f!=NULL)
     fftwf_free(par->grid_npot_f);
 #else //_SPREC
   if(par->grid_dens_f!=NULL)
     fftw_free(par->grid_dens_f);
+  if(par->grid_velx_f!=NULL)
+    fftw_free(par->grid_velx_f);
+  if(par->grid_vely_f!=NULL)
+    fftw_free(par->grid_vely_f);
+  if(par->grid_velz_f!=NULL)
+    fftw_free(par->grid_velz_f);
   if(par->grid_npot_f!=NULL)
     fftw_free(par->grid_npot_f);
 #endif //_SPREC
